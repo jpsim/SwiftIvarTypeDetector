@@ -11,7 +11,7 @@
 
 #pragma mark - Swift ivar encoding detection
 
-// Code from here (MIT-licensed): https://github.com/johnno1962/XprobePlugin/blob/master/Classes/Xprobe.mm#L1491
+// Code from here: https://github.com/johnno1962/XprobePlugin/blob/master/Classes/Xprobe.mm#L1491
 //
 //  Created by John Holdsworth on 17/05/2014.
 //  Copyright (c) 2014 John Holdsworth. All rights reserved.
@@ -30,31 +30,10 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-struct _swift_class;
-
-struct _swift_type {
-    unsigned long flags;
-    const char *typeIdent;
-};
-
-struct _swift_field {
-    unsigned long flags;
-    union {
-        struct _swift_type *typeInfo;
-        Class objcClass;
-    };
-    void *unknown;
-    struct _swift_field *conditional;
-    union {
-        struct _swift_class *swiftClass;
-        struct _swift_field *subType;
-    };
-};
-
 struct _swift_data {
     unsigned long flags;
     const char *className;
-    int fieldcount, flasg2;
+    int fieldcount, flags2;
     const char *ivarNames;
     struct _swift_field **(*get_field_data)();
 };
@@ -68,6 +47,20 @@ struct _swift_class {
     void *buckets, *vtable, *pdata;
     int size, tos, mds, eight;
     struct _swift_data *swiftData;
+    IMP dispatch[1];
+};
+
+struct _swift_field {
+    unsigned long flags;
+    union {
+        struct _swift_type {
+            unsigned long flags;
+            const char *typeIdent;
+        } *typeInfo;
+        Class objcClass;
+    };
+    void *unknown;
+    struct _swift_field *optional;
 };
 
 static const char *typeInfoForName( const char *name ) {
@@ -97,31 +90,16 @@ static const char *ivar_getTypeEncodingSwift( Ivar ivar, Class aClass ) {
     if ( ivarIndex == swiftData->fieldcount )
         return NULL;
 
-    struct _swift_field **swiftFields = swiftData->get_field_data();
-    struct _swift_field *field = swiftFields[ivarIndex];
-    struct _swift_class *ivarClass = field->swiftClass;
+    struct _swift_field *field = swiftData->get_field_data()[ivarIndex];
 
-    // this could probably be tidied up if I knew what was going on...
-    if ( field->flags == 0x2 && (field->conditional->flags > 0x2 || (ivarClass && ivarClass->flags>0x2) ) )
-        return typeInfoForName(field->typeInfo->typeIdent);
+    if ( field->flags == 0x2 )
+        field = field->optional;
+    if ( field->flags == 0x1 )
+        return field->typeInfo->typeIdent+1;
     else if ( field->flags == 0xe )
         return typeInfoForClass(field->objcClass);
-    else if ( field->conditional && field->conditional->flags<0xf ) {
-        if ( field->conditional->flags == 0xe )
-            return typeInfoForClass(field->conditional->objcClass);
-        else
-            return field->conditional->typeInfo->typeIdent+1;
-    }
-    else if ( field->flags > 0xf )
-        return typeInfoForClass((__bridge Class)field);
-    else if ( !ivarClass )
-        return field->typeInfo->typeIdent+1;
-    else if ( ivarClass->flags == 0x1 )
-        return field->subType->typeInfo->typeIdent+1;
-    else if ( ivarClass->flags == 0xe )
-        return typeInfoForClass(field->subType->objcClass);
     else
-        return typeInfoForClass((__bridge Class)ivarClass);
+        return typeInfoForClass((__bridge Class)field);
 }
 
 @implementation Detector
