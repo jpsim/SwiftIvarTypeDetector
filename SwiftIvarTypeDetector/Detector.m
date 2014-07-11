@@ -112,6 +112,8 @@ static const char *ivar_getTypeEncodingSwift( Ivar ivar, Class aClass ) {
         else
             return field->conditional->typeInfo->typeIdent+1;
     }
+    else if ( field->flags > 0xf )
+        return typeInfoForClass((__bridge Class)field);
     else if ( !ivarClass )
         return field->typeInfo->typeIdent+1;
     else if ( ivarClass->flags == 0x1 )

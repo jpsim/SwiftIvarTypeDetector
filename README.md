@@ -4,7 +4,7 @@ This is a very simple project that wraps `ivar_getTypeEncodingSwift` from @johnn
 
 ## Usage
 
-Modify `SwiftIvarTypeDetectorTests.swift` and run the tests (`⌘+U`) to print out the properties on any Swift class. Caveat: properties of Swift object type aren't yet supported.
+Modify `SwiftIvarTypeDetectorTests.swift` and run the tests (`⌘+U`) to print out the properties on any Swift class.
 
 This project requires Xcode 6 (betas 1/2/3 all work).
 
