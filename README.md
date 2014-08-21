@@ -6,13 +6,11 @@ This is a very simple project that wraps `ivar_getTypeEncodingSwift` from @johnn
 
 Modify `SwiftIvarTypeDetectorTests.swift` and run the tests (`⌘+U`) to print out the properties on any Swift class.
 
-This project requires Xcode 6 (betas 1/2/3 all work).
+This project requires Xcode 6 (only betas 5 & 6 work as of 21/08/2014).
 
 ## License
 
 Copyright (c) 2014 John Holdsworth. Licensed for download and any use during development of Objective-C applications, re-distribution may only be through github however including this copyright notice.
-
-This release includes a very slightly modified version of the excellent canviz library to render "dot" files in an HTML canvas which is subject to an MIT license. The changes are to pass through the ID of the node to the node label tag (line 212), to reverse the rendering of nodes and the lines linking them (line 406) and to store edge paths so they can be colored (line 66 and 303) in "canviz-0.1/canviz.js".
 
 ## As ever:
 
