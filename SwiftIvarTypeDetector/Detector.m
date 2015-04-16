@@ -132,7 +132,7 @@ static const char *ivar_getTypeEncodingSwift( Ivar ivar, Class aClass ) {
     else if ( field->flags == 0xe ) // objc class
         return typeInfoForClass(field->objcClass);
     else if ( field->flags == 0x10 ) // pointer
-        return strfmt(@"^{%s}", skipSwift(field->typeIdent) );
+        return strfmt(@"^{%s}", skipSwift(field->typeIdent?:"??") );
     else if ( field->flags < 0x100 ) // unknown/bad isa
         return strfmt(@"?FLAGS#%d", (int)field->flags);
     else // swift class
