@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB103F1D1B07BD2D00F280F2 /* IvarAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = BB103F1C1B07BD2D00F280F2 /* IvarAccess.h */; };
+		BB103F1F1B07BE2D00F280F2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = BB103F1E1B07BE2D00F280F2 /* README.md */; };
 		E87C2CFF196F9AED009783E4 /* SwiftIvarTypeDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = E87C2CFE196F9AED009783E4 /* SwiftIvarTypeDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E87C2D05196F9AED009783E4 /* SwiftIvarTypeDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87C2CF9196F9AED009783E4 /* SwiftIvarTypeDetector.framework */; };
 		E87C2D17196F9B09009783E4 /* Detector.h in Headers */ = {isa = PBXBuildFile; fileRef = E87C2D15196F9B09009783E4 /* Detector.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,6 +27,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB103F1C1B07BD2D00F280F2 /* IvarAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IvarAccess.h; sourceTree = "<group>"; };
+		BB103F1E1B07BE2D00F280F2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E87C2CF9196F9AED009783E4 /* SwiftIvarTypeDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftIvarTypeDetector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E87C2CFD196F9AED009783E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E87C2CFE196F9AED009783E4 /* SwiftIvarTypeDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftIvarTypeDetector.h; sourceTree = "<group>"; };
@@ -57,6 +61,7 @@
 		E87C2CEF196F9AED009783E4 = {
 			isa = PBXGroup;
 			children = (
+				BB103F1E1B07BE2D00F280F2 /* README.md */,
 				E87C2CFB196F9AED009783E4 /* SwiftIvarTypeDetector */,
 				E87C2D08196F9AED009783E4 /* SwiftIvarTypeDetectorTests */,
 				E87C2CFA196F9AED009783E4 /* Products */,
@@ -76,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				E87C2CFE196F9AED009783E4 /* SwiftIvarTypeDetector.h */,
+				BB103F1C1B07BD2D00F280F2 /* IvarAccess.h */,
 				E87C2D15196F9B09009783E4 /* Detector.h */,
 				E87C2D16196F9B09009783E4 /* Detector.m */,
 				E87C2CFC196F9AED009783E4 /* Supporting Files */,
@@ -116,6 +122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E87C2D17196F9B09009783E4 /* Detector.h in Headers */,
+				BB103F1D1B07BD2D00F280F2 /* IvarAccess.h in Headers */,
 				E87C2CFF196F9AED009783E4 /* SwiftIvarTypeDetector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB103F1F1B07BE2D00F280F2 /* README.md in Sources */,
 				E87C2D18196F9B09009783E4 /* Detector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,6 +418,7 @@
 				E87C2D11196F9AED009783E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E87C2D12196F9AED009783E4 /* Build configuration list for PBXNativeTarget "SwiftIvarTypeDetectorTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +427,7 @@
 				E87C2D14196F9AED009783E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
