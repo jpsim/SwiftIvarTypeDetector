@@ -19,6 +19,7 @@ class ParentClass {
     var floatCol = 0 as Float
     var doubleCol = 0.0
     var stringCol = ""
+    var rectCol = CGRectMake(1.0, 2.0, 3.0, 4.0)
     var simpleCol = SimpleClass()
     var genericCol = GenericClass<String>()
 }

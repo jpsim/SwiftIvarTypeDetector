@@ -4,7 +4,7 @@
 //
 //  Generic access to get/set ivars - functions so they work with Swift.
 //
-//  $Id: //depot/XprobePlugin/Classes/IvarAccess.h#2 $
+//  $Id: //depot/XprobePlugin/Classes/IvarAccess.h#4 $
 //
 //  Source Repo:
 //  https://github.com/johnno1962/Xprobe/blob/master/Classes/IvarAccess.h
@@ -44,7 +44,11 @@
 
 #import <Foundation/Foundation.h>
 
-#pragma mark support for Objective-C++ reference classes
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
 
 @interface XprobeSwift : NSObject
 + (NSString *)convert:(void *)stringPtr;
@@ -326,7 +330,6 @@ id xvalueForPointer( id self, void *iptr, const char *type ) {
                     *tptr++ = *type++;
             *tptr = '\000';
 
-#ifdef XPROBE_MAJIC
             // for incomplete Swift encodings
             if ( strchr( cleanType, '=' ) )
                 ;
@@ -338,27 +341,27 @@ id xvalueForPointer( id self, void *iptr, const char *type ) {
                 strcpy( cleanType, @encode(CGSize) );
             else if ( strcmp(cleanType,"{CGRect}") == 0 )
                 strcpy( cleanType, @encode(CGRect) );
-#ifndef __IPHONE_OS_VERSION_MIN_REQUIRED
+#if TARGET_OS_IPHONE
+            else if ( strcmp(cleanType,"{UIOffset}") == 0 )
+                strcpy( cleanType, @encode(UIOffset) );
+            else if ( strcmp(cleanType,"{UIEdgeInsets}") == 0 )
+                strcpy( cleanType, @encode(UIEdgeInsets) );
+#else
             else if ( strcmp(cleanType,"{NSPoint}") == 0 )
                 strcpy( cleanType, @encode(NSPoint) );
             else if ( strcmp(cleanType,"{NSSize}") == 0 )
                 strcpy( cleanType, @encode(NSSize) );
             else if ( strcmp(cleanType,"{NSRect}") == 0 )
                 strcpy( cleanType, @encode(NSRect) );
-#else
-            else if ( strcmp(cleanType,"{UIOffset}") == 0 )
-                strcpy( cleanType, @encode(UIOffset) );
-            else if ( strcmp(cleanType,"{UIEdgeInsets}") == 0 )
-                strcpy( cleanType, @encode(UIEdgeInsets) );
 #endif
             else if ( strcmp(cleanType,"{CGAffineTransform}") == 0 )
                 strcpy( cleanType, @encode(CGAffineTransform) );
-#endif
+
             return [NSValue valueWithBytes:iptr objCType:cleanType];
         }
-            @catch ( NSException *e ) {
-                return @"raised exception";
-            }
+        @catch ( NSException *e ) {
+            return @"raised exception";
+        }
         case '*': {
             const char *ptr = *(const char **)iptr;
             return ptr ? utf8String( ptr ) : @"NULL";
