@@ -4,7 +4,7 @@
 //
 //  Generic access to get/set ivars - functions so they work with Swift.
 //
-//  $Id: //depot/XprobePlugin/Classes/IvarAccess.h#4 $
+//  $Id: //depot/XprobePlugin/Classes/IvarAccess.h#5 $
 //
 //  Source Repo:
 //  https://github.com/johnno1962/Xprobe/blob/master/Classes/IvarAccess.h
@@ -287,7 +287,9 @@ id xvalueForPointer( id self, void *iptr, const char *type ) {
                     out = nil;
                 else if ( uptr & 0xffffffff ) {
                     id obj = *(const id *)iptr;
+#ifdef XPROBE_MAGIC
                     [obj description];
+#endif
                     out = obj;
                 }
             } );
